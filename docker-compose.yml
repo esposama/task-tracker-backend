@@ -1,0 +1,23 @@
+version: "3.7"
+
+volumes:
+  mongo_db:
+
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_db
+  tasks:
+    build: .
+    ports:
+      - 3030:3030
+    volumes:
+      - ./package.json:/opt/tasks/package.json
+      - ./yarn.lock:/opt/tasks/yarn.lock
+      - ./config:/opt/tasks/config
+      - ./src:/opt/tasks/src
+      - ./public:/opt/tasks/public
+      - ./test:/opt/tasks/test
